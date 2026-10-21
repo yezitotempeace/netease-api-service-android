@@ -1,0 +1,32 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'top.izuna.ncmapi'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId "top.izuna.ncmapi"
+        minSdk 24
+        targetSdk 36
+        versionCode 1
+        versionName "1.0"
+        // 只打包 arm64-v8a：内置的 libnode.so 为 64 位构建
+        ndk { abiFilters 'arm64-v8a' }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    packagingOptions {
+        // .so 以解压形式安装到设备，便于 System.loadLibrary 直接加载
+        jniLibs { useLegacyPackaging true }
+    }
+
+    buildTypes {
+        debug { minifyEnabled false }
+    }
+}
+
+dependencies { }
